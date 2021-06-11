@@ -1,14 +1,11 @@
 package com.example.mynotes.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mynotes.R;
 import com.example.mynotes.ViewModel.NotesViesModel;

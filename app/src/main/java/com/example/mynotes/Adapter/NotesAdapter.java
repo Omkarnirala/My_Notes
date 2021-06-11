@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.Activity.UpdatesNotesActivity;
@@ -15,36 +14,52 @@ import com.example.mynotes.MainActivity;
 import com.example.mynotes.R;
 import com.example.mynotes.model.Notes;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesViewHolder> {
 
     MainActivity mainActivity;
     List<Notes> notes;
+    List<Notes> allNotesItem;
 
     public NotesAdapter(MainActivity mainActivity, List<Notes> notes) {
         this.mainActivity = mainActivity;
         this.notes = notes;
+        allNotesItem = new ArrayList<>(notes);
+    }
+
+    public void SearchNotes(List<Notes> filteredNames){
+
+        this.notes = filteredNames;
+        notifyDataSetChanged();
+
     }
 
     @Override
-    public notesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public @NotNull notesViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
 
 
-        return new notesViewHolder(LayoutInflater.from(mainActivity).inflate(R.layout.item_notes,parent,false));
+        return new notesViewHolder(LayoutInflater.from(mainActivity).inflate(R.layout.item_notes, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(NotesAdapter.notesViewHolder holder, int position) {
+    public void onBindViewHolder(NotesAdapter.@NotNull notesViewHolder holder, int position) {
 
         Notes note = notes.get(position);
         try {
-            if (note.notesPriority.equals("1")){
-            holder.notesPriority.setBackgroundResource(R.drawable.green_shape);
-            }else if (note.notesPriority.equals("2")){
-                holder.notesPriority.setBackgroundResource(R.drawable.yellow_shape);
-            }else if (note.notesPriority.equals("3")){
-                holder.notesPriority.setBackgroundResource(R.drawable.red_shape);
+            switch (note.notesPriority) {
+                case "1":
+                    holder.notesPriority.setBackgroundResource(R.drawable.green_shape);
+                    break;
+                case "2":
+                    holder.notesPriority.setBackgroundResource(R.drawable.yellow_shape);
+                    break;
+                case "3":
+                    holder.notesPriority.setBackgroundResource(R.drawable.red_shape);
+                    break;
             }
 
         }catch (Exception e){
@@ -78,7 +93,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesViewHol
 
 
 
-    class notesViewHolder extends RecyclerView.ViewHolder {
+    static class notesViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, subtitle, notesDate;
         View notesPriority;

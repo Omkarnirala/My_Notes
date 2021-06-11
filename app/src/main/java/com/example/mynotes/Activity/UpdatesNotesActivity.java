@@ -1,10 +1,5 @@
 package com.example.mynotes.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.room.Update;
-
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -15,9 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.mynotes.R;
 import com.example.mynotes.ViewModel.NotesViesModel;
-import com.example.mynotes.databinding.ActivityInsertNotesBinding;
 import com.example.mynotes.databinding.ActivityUpdatesNotesBinding;
 import com.example.mynotes.model.Notes;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -48,20 +46,22 @@ public class UpdatesNotesActivity extends AppCompatActivity {
         binding.upSubtitle.setText(ssubtitle);
         binding.upNotes.setText(snotes);
 
-        if (spriority.equals("1")){
-            binding.greenPriority.setImageResource(R.drawable.ic_baseline_done_24);
-            binding.yellowPriority.setImageResource(0);
-            binding.redPriority.setImageResource(0);
-        }
-        else if (spriority.equals("2")){
-            binding.yellowPriority.setImageResource(R.drawable.ic_baseline_done_24);
-            binding.greenPriority.setImageResource(0);
-            binding.redPriority.setImageResource(0);
-        }
-        else if (spriority.equals("3")){
-            binding.redPriority.setImageResource(R.drawable.ic_baseline_done_24);
-            binding.yellowPriority.setImageResource(0);
-            binding.greenPriority.setImageResource(0);
+        switch (spriority) {
+            case "1":
+                binding.greenPriority.setImageResource(R.drawable.ic_baseline_done_24);
+                binding.yellowPriority.setImageResource(0);
+                binding.redPriority.setImageResource(0);
+                break;
+            case "2":
+                binding.yellowPriority.setImageResource(R.drawable.ic_baseline_done_24);
+                binding.greenPriority.setImageResource(0);
+                binding.redPriority.setImageResource(0);
+                break;
+            case "3":
+                binding.redPriority.setImageResource(R.drawable.ic_baseline_done_24);
+                binding.yellowPriority.setImageResource(0);
+                binding.greenPriority.setImageResource(0);
+                break;
         }
 
         notesViesModel = ViewModelProviders.of(this).get(NotesViesModel.class);
@@ -153,9 +153,7 @@ public class UpdatesNotesActivity extends AppCompatActivity {
                 finish();
             });
 
-            no.setOnClickListener(v -> {
-                sheetDialog.dismiss();
-            });
+            no.setOnClickListener(v -> sheetDialog.dismiss());
 
         }
         return true;
